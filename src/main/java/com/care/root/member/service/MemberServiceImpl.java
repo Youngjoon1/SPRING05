@@ -2,6 +2,8 @@ package com.care.root.member.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.jsp.tagext.TryCatchFinally;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,25 +25,52 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 		public ArrayList<MemberDTO> getList() {
-		ArrayList<MemberDTO> list = mm.getList();
+		ArrayList<MemberDTO> list = null;
+		try {
+			list = mm.getList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return list;
 	}
 
 		public MemberDTO userInfo(String id) {
-			MemberDTO dto = mm.userInfo(id);
+			MemberDTO dto = null;
+			try {
+				dto = mm.userInfo(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return dto;
 		}
 		
 		public int insertMember(MemberDTO dto) {
-			return mm.insertMember(dto);
+			
+			try {
+				return mm.insertMember(dto);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
 		}
 		
 		public int updateMember(MemberDTO dto) {
-			return mm.updateMember(dto);
+			try {
+				return mm.updateMember(dto);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
 		}
 		
 		public int memberDel(String id) {
-			return mm.memberDel(id);
+			try {
+				return mm.memberDel(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return 0;
+			}
 		}
 
 	

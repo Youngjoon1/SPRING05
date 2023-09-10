@@ -35,6 +35,7 @@ public class MemberController {
 	public String loginCK(@RequestParam String id,@RequestParam String pw,HttpSession user) {
 		if(ms.loginCK(id, pw) == 1) {
 			user.setAttribute("user", id);
+			
 			return "member/successLogin";
 		}
 		return "redirect:login";
@@ -83,8 +84,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("userDel")
-	public String userDel(String id) {
+	public String userDel(String id,HttpSession user) {
 		ms.memberDel(id);
+		if(user.getAttribute("user").equals(id)) {
+			user.invalidate();
+			return "redirect:login";
+		}
 		return "redirect:memberInfo";
 	}
 	
